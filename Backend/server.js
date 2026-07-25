@@ -41,6 +41,7 @@ app.use(cors({
     if (isLocalhost || allowedOrigins.includes(normalizedOrigin)) {
       callback(null, true);
     } else {
+      console.log(`[CORS Blocked] Origin: "${normalizedOrigin}", Allowed Origins:`, allowedOrigins);
       callback(new Error("Not allowed by CORS"));
     }
   },
