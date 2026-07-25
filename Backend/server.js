@@ -26,17 +26,19 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
   process.env.CLIENT_URL,
-].filter(Boolean);
+].filter(Boolean).map(url => url.replace(/\/$/, ""));
 
 app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (like mobile apps, curl, or Postman)
     if (!origin) return callback(null, true);
     
-    // Check if origin is localhost (any port)
-    const isLocalhost = /^https?:\/\/localhost(:\d+)?$/.test(origin);
+    const normalizedOrigin = origin.replace(/\/$/, "");
     
-    if (isLocalhost || allowedOrigins.includes(origin)) {
+    // Check if origin is localhost (any port)
+    const isLocalhost = /^https?:\/\/localhost(:\d+)?$/.test(normalizedOrigin);
+    
+    if (isLocalhost || allowedOrigins.includes(normalizedOrigin)) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
