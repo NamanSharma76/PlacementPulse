@@ -1,3 +1,129 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #f8fafc !important;
+    color: #0f172a !important;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  /* Global background overrides for page layouts - Slate-50 */
+  .bg-gray-50, .bg-gray-100, .bg-slate-50 {
+    background-color: #f8fafc !important;
+  }
+
+  /* Crisp white panels and card blocks */
+  .bg-white {
+    background-color: #ffffff !important;
+    border-color: #f1f5f9 !important;
+  }
+
+  /* Secondary panels/hover rows */
+  .bg-gray-50\/50, .bg-amber-50\/50, .bg-indigo-50\/10, .bg-gray-50:hover {
+    background-color: #f8fafc !important;
+  }
+
+  /* Text color typography scale - Slate colors */
+  .text-gray-900, .text-gray-800, .text-gray-700, .text-slate-900, .text-slate-800, .text-slate-700 {
+    color: #0f172a !important;
+  }
+  .text-gray-600, .text-gray-500, .text-slate-600, .text-slate-500 {
+    color: #475569 !important;
+  }
+  .text-gray-400, .text-slate-400 {
+    color: #94a3b8 !important;
+  }
+
+  /* Borders and Dividers */
+  .border-gray-200, .border-gray-100, .border-slate-200, .border-slate-100, .border-t, .border-b, .border-r, .border-l, .border {
+    border-color: #e2e8f0 !important;
+  }
+
+  /* Sidebar/table row hover highlights */
+  .hover\:bg-gray-50:hover, .hover\:bg-slate-50:hover {
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+  }
+
+  /* Inputs, Textareas, and Dropdown selects */
+  input, select, textarea {
+    background-color: #ffffff !important;
+    border-color: #cbd5e1 !important;
+    color: #0f172a !important;
+  }
+  input::placeholder, textarea::placeholder {
+    color: #94a3b8 !important;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: #0ea5e9 !important;
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.15) !important;
+  }
+
+  /* Premium light badges and alerts styling */
+  .bg-indigo-50, .bg-sky-50 {
+    background-color: rgba(14, 165, 233, 0.08) !important;
+    color: #0369a1 !important;
+  }
+  .bg-red-50 {
+    background-color: rgba(239, 68, 68, 0.06) !important;
+    color: #dc2626 !important;
+    border-color: rgba(239, 68, 68, 0.15) !important;
+  }
+  .bg-yellow-50 {
+    background-color: rgba(245, 158, 11, 0.06) !important;
+    color: #d97706 !important;
+    border-color: rgba(245, 158, 11, 0.15) !important;
+  }
+  .bg-green-50 {
+    background-color: rgba(16, 185, 129, 0.06) !important;
+    color: #059669 !important;
+    border-color: rgba(16, 185, 129, 0.15) !important;
+  }
+
+  /* Table headers */
+  th {
+    background-color: #f8fafc !important;
+    color: #475569 !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+  }
+
+  /* Custom ultra-soft modern shadow */
+  .shadow-sm {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04) !important;
+  }
+  .shadow, .shadow-md {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05) !important;
+  }
+  .shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -4px rgba(0, 0, 0, 0.04) !important;
+  }
+
+  /* Code blocks container */
+  pre, code {
+    background-color: #f8fafc !important;
+    color: #334155 !important;
+  }
+
+  /* Custom overrides for mapping standard indigo to sky */
+  .bg-indigo-600, .bg-indigo-500 {
+    background-color: #0284c7 !important; /* sky-600 */
+  }
+  .hover\:bg-indigo-700:hover, .hover\:bg-indigo-600:hover {
+    background-color: #0369a1 !important; /* sky-700 */
+  }
+  .text-indigo-600, .text-indigo-500 {
+    color: #0284c7 !important; /* sky-600 */
+  }
+  .text-indigo-700, .text-indigo-800, .text-indigo-900 {
+    color: #0369a1 !important; /* sky-700 */
+  }
+  .bg-indigo-50 {
+    background-color: rgba(14, 165, 233, 0.08) !important;
+  }
+  .border-indigo-100, .border-indigo-200 {
+    border-color: #bae6fd !important;
+  }
+}

@@ -7,7 +7,7 @@ const {
   bulkUpdateStatus, bulkImportStudents,
   getAllStudents, getStudentProfile, updateStudentProfile, lockStudentProfile,
   verifyStudent, blockStudent, unblockStudent,
-  getStats, bulkNotify,
+  getStats, bulkNotify, getQueries, resolveQuery,
 } = require("../controllers/admin.controller");
 
 
@@ -68,5 +68,9 @@ router.post("/notify", bulkNotify);
 router.get("/students/:id", getStudentProfile);
 router.patch("/students/:id/profile", updateStudentProfile);
 router.patch("/students/:id/lock", lockStudentProfile);
+
+// Query management
+router.get("/queries", getQueries);
+router.patch("/queries/:id/resolve", resolveQuery);
 
 module.exports = router;

@@ -1,6 +1,8 @@
 # 🎓 Placement Portal
 
-A production-grade full-stack college placement management portal built with the MERN stack. Designed to streamline the entire placement process — from student onboarding to final selections.
+A production-grade, full-stack college placement management portal built with the MERN stack. Designed to streamline the entire placement process — from student onboarding to final selections.
+
+Now includes an advanced **RAG Resume Matching Engine** to automatically parse student resumes and rank candidates against Job Descriptions!
 
 🔗 **Live Demo:** [placement-portal-red.vercel.app](https://placement-portal-red.vercel.app)
 
@@ -11,61 +13,40 @@ A production-grade full-stack college placement management portal built with the
 ### Admin Login
 | Field    | Value                          |
 |----------|-------------------------------|
-| Email    | kumarjhanitesh09@gmail.com    |
-| Password | Admin@123                     |
+| Email    | namansharma9625@gmail.com     |
+| Password | Admin@Naman                   |
 
 ### Student Login
 > Register a new account using any **@gmail.com** email address.
 
 ---
 
-## ✨ Features
+## ✨ Core Features
 
 ### 👨‍🎓 Student Side
-- Register with university email + OTP verification
-- Browse job listings with real-time eligibility check
-- Apply to companies (server-side eligibility engine)
-- Track application status with round-by-round progress stepper
-- Withdraw application (if status is "applied" and deadline not passed)
-- Upload resume (PDF) and profile photo
-- Manage profile — CGPA, skills, 10th/12th marks, backlogs
-- Change password from profile
-- Forgot password via OTP email
-- Contact placement cell with FAQ section
-- View offer letter download
+- **Self Signup & Verification**: Register with university email + OTP verification.
+- **Job Listings**: Browse active job openings with dynamic, server-side eligibility checks.
+- **RAG Match Analysis**: View an automated **Resume Match Analysis** card on job postings, displaying match percentage, shared matching skills, and missing skill gaps.
+- **Application Flow**: Apply to eligible companies and track status with a stepper (applied ➔ test ➔ interview ➔ selected).
+- **Profile Management**: Upload photo and PDF resume. Manage manually entered skills, CGPA, backlogs, and academic history.
+- **Password Settings**: Change password from profile dashboard or request resets via email OTP.
+- **Placement Cell Contact**: Submit query messages directly to the placement office with status tracking.
 
 ### 👨‍💼 Admin Side
-- Dashboard with placement statistics, charts, and top companies
-- Create and manage job postings with full eligibility criteria
-  - Min CGPA, 10th/12th marks, branch, backlogs, year
-- View and manage all applicants per company
-- Update application status individually
-- **Bulk update from company Excel** — auto-detect roll numbers, dry-run preview, partial updates
-- Export applicants to Excel with resume links
-- **Bulk import students via Excel** — auto-create accounts, send activation emails
-- Verify / debar / reinstate students
-- View and edit full student profile
-- Lock student profile (prevents editing of academic data)
-- Send bulk email notifications by branch
-- Audit logs for all bulk operations
+- **Statistics Dashboard**: Placement ratios, top companies, branch-wise statistics, and charts.
+- **Job Manager**: Create and manage job openings with granular eligibility criteria (Min CGPA, branches, maximum active backlogs, etc.).
+- **RAG Resume Matcher**: Select any active job posting to automatically parse, score, and rank all student resumes. View detailed skill overlap audits (Shared Skills vs Gaps) and load resumes in an instant PDF viewer.
+- **Applicant Pipeline**: View list of applicants, export list to Excel, and bulk update selection statuses using company-provided Excel sheets.
+- **Student Management**: Verify registration profiles, debar/reinstate students, edit profile details, and lock profiles to prevent changes to academic data.
+- **Student Queries Dashboard**: Dedicated inbox to review, track, and mark student contact queries as "Resolved".
+- **Notifications Panel**: Send targeted email announcements by branch.
+- **Audit Logs**: View log files of all bulk operations.
 
-### 🔐 Security & Auth
-- JWT access + refresh token rotation
-- Role-based access control (Student / Admin)
-- Hybrid onboarding system
-  - Admin import → activation email → student sets password
-  - Self signup → OTP verification → admin approves
-- Crypto-secure activation tokens (SHA-256)
-- Profile locking to protect academic data integrity
-- Student debarring system with email notification
-- Account status system (pending_activation / pending_verification / active)
-
-### ⚡ Performance
-- Server-side caching with Node-Cache (99% faster on repeat requests)
-- MongoDB compound indexes on all critical collections
-- Pagination on all major endpoints
-- Query optimization with .lean() and Promise.all()
-- API response times reduced from ~470ms to under 5ms on cached endpoints
+### 🔐 Security & Operations
+- **JWT Authentication**: Token rotation using Access + Refresh token flows.
+- **Axios Interceptor**: Smart retry handlers that handle token rotation and prevent infinite auth loops.
+- **Rate Limiting**: Integrated endpoint rate limits (dynamically scales to 10k in local dev to avoid development locks).
+- **Dynamic CORS**: Accepts dynamic localhost ports in development and strict URL validation in production.
 
 ---
 
@@ -76,105 +57,100 @@ A production-grade full-stack college placement management portal built with the
 | Frontend   | React.js, Vite, Tailwind CSS           |
 | Backend    | Node.js, Express.js                    |
 | Database   | MongoDB Atlas                          |
+| Parser     | PDF-Parse (v2.x)                       |
 | Auth       | JWT (Access + Refresh Tokens)          |
 | Email      | Brevo SMTP                             |
 | Storage    | Cloudinary                             |
 | Caching    | Node-Cache                             |
 | Deployment | Vercel (Frontend), Render (Backend)    |
-| Analytics  | Vercel Analytics                       |
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js v18+
+- Node.js v20+
 - MongoDB Atlas account
 - Cloudinary account
 - Brevo account (for email)
 
-### Clone the repository
-```bash
-git clone https://github.com/niteshhh001/Placement_Portal.git
-cd Placement_Portal
-```
+### Setup & Installation
 
-### Backend Setup
-```bash
-cd Backend
-npm install
-```
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/niteshhh001/Placement_Portal.git
+   cd Placement_Portal
+   ```
 
-Create `Backend/.env`:
-```
-PORT=5000
-NODE_ENV=development
-MONGO_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
-JWT_EXPIRES_IN=7d
-JWT_REFRESH_SECRET=your_refresh_secret
-JWT_REFRESH_EXPIRES_IN=30d
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
-SMTP_HOST=smtp-relay.brevo.com
-SMTP_PORT=587
-SMTP_USER=your_brevo_email
-SMTP_PASS=your_brevo_smtp_key
-EMAIL_FROM=your_email
-CLIENT_URL=http://localhost:5173
-UNIVERSITY_DOMAIN=gmail.com
-```
+2. **Install all dependencies (Monorepo setup)**
+   We have configured a root-level package script to install both Frontend and Backend dependencies in one command:
+   ```bash
+   npm run install:all
+   ```
 
-Seed admin account:
-```bash
-node utils/seedAdmin.js
-```
+3. **Configure Environment Variables**
 
-Start backend:
-```bash
-npm run dev
-```
+   - **Backend Configuration (`Backend/.env`)**:
+     ```env
+     PORT=5000
+     NODE_ENV=development
+     MONGO_URI=your_mongodb_uri
+     JWT_SECRET=your_jwt_secret
+     JWT_REFRESH_SECRET=your_jwt_refresh_secret
+     CLOUDINARY_CLOUD_NAME=your_cloud_name
+     CLOUDINARY_API_KEY=your_api_key
+     CLOUDINARY_API_SECRET=your_api_secret
+     BREVO_API_KEY=your_brevo_api_key
+     SENDER_EMAIL=your_sender_email
+     CLIENT_URL=http://localhost:3000
+     UNIVERSITY_DOMAIN=gmail.com
+     ```
 
-### Frontend Setup
-```bash
-cd Frontend
-npm install
-```
+   - **Frontend Configuration (`Frontend/.env`)**:
+     ```env
+     VITE_API_URL=http://localhost:5000/api
+     VITE_UNIVERSITY_DOMAIN=gmail.com
+     ```
 
-Create `Frontend/.env`:
-```
-VITE_API_URL=http://localhost:5000/api
-VITE_UNIVERSITY_DOMAIN=gmail.com
-```
+4. **Seed Admin Account**
+   ```bash
+   npm run dev --prefix Backend  # (Run inside Backend dir if running first time)
+   node Backend/utils/seedAdmin.js
+   ```
 
-Start frontend:
-```bash
-npm run dev
-```
+5. **Start Local Development Server**
+   Start both Backend and Frontend concurrently with a single command from the project root:
+   ```bash
+   npm run dev
+   ```
+   * The backend will run on port `5000`.
+   * The frontend will run on port `3000`.
 
 ---
 
 ## 📁 Project Structure
+
 ```
 Placement_Portal/
 ├── Backend/
-│   ├── controllers/        # Business logic
-│   ├── models/             # MongoDB schemas
-│   ├── routes/             # API routes
-│   ├── middleware/         # Auth, validation, error handling
-│   ├── utils/              # Cache, email, cron, seed
-│   └── server.js
+│   ├── config/             # DB & Cloudinary configs
+│   ├── controllers/        # Business logic controllers
+│   ├── middleware/         # Auth, validation, error handler middlewares
+│   ├── models/             # MongoDB schemas (Student, Job, Query, etc.)
+│   ├── routes/             # Express API routers
+│   ├── scratch/            # Development diagnostic & test scripts
+│   ├── utils/              # Email helpers, matching engine, pdf parser utilities
+│   └── server.js           # Server entry point
 │
-└── Frontend/
-    └── src/
-        ├── pages/
-        │   ├── admin/      # Admin pages
-        │   └── student/    # Student pages
-        ├── components/     # Shared components
-        ├── context/        # Auth, Theme context
-        ├── api/            # Axios instance
-        └── auth/           # Protected routes
+├── Frontend/
+│   ├── public/             # Static public assets
+│   └── src/
+│       ├── api/            # Axios API config
+│       ├── auth/           # Route guard wrappers
+│       ├── components/     # Reusable layout components
+│       ├── context/        # Global Auth context
+│       ├── pages/          # Student & Admin dashboard pages
+│       └── App.jsx         # App router registration
 ```
 
 ---
@@ -182,97 +158,55 @@ Placement_Portal/
 ## 📊 API Endpoints
 
 ### Auth
-| Method | Endpoint                    | Description              |
-|--------|-----------------------------|--------------------------|
-| POST   | /api/auth/student/register  | Register + send OTP      |
-| POST   | /api/auth/student/verify-otp| Verify OTP + create acc  |
-| POST   | /api/auth/login             | Login (student + admin)  |
-| POST   | /api/auth/refresh           | Refresh access token     |
-| POST   | /api/auth/forgot-password   | Send reset OTP           |
-| POST   | /api/auth/reset-password    | Reset password           |
-| POST   | /api/auth/activate          | Activate imported account|
-| POST   | /api/auth/resend-activation | Resend activation email  |
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/auth/student/register` | Register student + send verification OTP |
+| POST | `/api/auth/student/verify-otp` | Verify OTP and activate account |
+| POST | `/api/auth/login` | Login handler (student + admin) |
+| POST | `/api/auth/refresh` | Refresh access tokens |
+| POST | `/api/auth/forgot-password` | Send password reset OTP |
+| POST | `/api/auth/reset-password` | Reset student password |
 
-### Student
-| Method | Endpoint                  | Description          |
-|--------|---------------------------|----------------------|
-| GET    | /api/student/profile      | Get own profile      |
-| PATCH  | /api/student/profile      | Update profile       |
-| POST   | /api/student/resume       | Upload resume        |
-| POST   | /api/student/photo        | Upload photo         |
-| POST   | /api/student/contact      | Contact placement cell|
-| POST   | /api/student/change-password | Change password   |
+### Resume Matching
+| Method | Endpoint | Description | Access |
+|---|---|---|---|
+| POST | `/api/matching/evaluate/:jobId` | Ranks all student resumes against a Job ID | Admin only |
+| GET | `/api/matching/job/:jobId/my-score` | Fetches match score & skill gaps for current user | Student only |
 
-### Jobs
-| Method | Endpoint              | Description              |
-|--------|-----------------------|--------------------------|
-| GET    | /api/jobs             | Get all jobs + eligibility|
-| GET    | /api/jobs/:id         | Get job details          |
-| POST   | /api/jobs/:id/apply   | Apply to job             |
+### Student Profile
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/student/profile` | Fetch own profile |
+| PATCH | `/api/student/profile` | Update profile fields |
+| POST | `/api/student/resume` | Upload and parse PDF resume |
+| POST | `/api/student/photo` | Upload profile photo |
+| POST | `/api/student/contact` | Submit placement query |
 
-### Applications
-| Method | Endpoint              | Description              |
-|--------|-----------------------|--------------------------|
-| GET    | /api/applications/me  | Get my applications      |
-| DELETE | /api/applications/:id | Withdraw application     |
+### Job Postings & Applications
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/jobs` | Get all jobs + eligibility status |
+| GET | `/api/jobs/:id` | Get job detail |
+| POST | `/api/jobs/:id/apply` | Submit application |
+| GET | `/api/applications/me` | Get student applications |
 
-### Admin
-| Method | Endpoint                           | Description              |
-|--------|------------------------------------|--------------------------|
-| GET    | /api/admin/stats                   | Dashboard statistics     |
-| POST   | /api/admin/jobs                    | Create job               |
-| PATCH  | /api/admin/jobs/:id                | Update job               |
-| DELETE | /api/admin/jobs/:id                | Close job                |
-| GET    | /api/admin/jobs/:id/applicants     | Get applicants           |
-| GET    | /api/admin/jobs/:id/export         | Export to Excel          |
-| POST   | /api/admin/jobs/:id/bulk-update    | Bulk update from Excel   |
-| GET    | /api/admin/students                | Get all students         |
-| POST   | /api/admin/students/import         | Bulk import students     |
-| GET    | /api/admin/students/:id            | Get student profile      |
-| PATCH  | /api/admin/students/:id/profile    | Edit student profile     |
-| PATCH  | /api/admin/students/:id/verify     | Verify student           |
-| PATCH  | /api/admin/students/:id/block      | Debar student            |
-| PATCH  | /api/admin/students/:id/unblock    | Reinstate student        |
-| PATCH  | /api/admin/students/:id/lock       | Lock/unlock profile      |
-| POST   | /api/admin/notify                  | Send bulk notifications  |
-| GET    | /api/admin/audit-logs              | Get audit logs           |
-| GET    | /api/admin/cache/stats             | Cache performance stats  |
+### Admin Actions
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/admin/queries` | Fetch all submitted student queries |
+| PATCH | `/api/admin/queries/:id/resolve` | Toggle student query resolution state |
+| GET | `/api/admin/jobs/:id/applicants` | List applicants for a job |
+| POST | `/api/admin/jobs/:id/bulk-update` | Bulk selection updates from Excel |
+| POST | `/api/admin/students/import` | Import new students from Excel |
+| PATCH | `/api/admin/students/:id/lock` | Lock/unlock academic profile data |
 
 ---
 
 ## 🌐 Deployment
 
-| Service  | Platform | URL                                              |
-|----------|----------|--------------------------------------------------|
-| Frontend | Vercel   | https://placement-portal-red.vercel.app          |
-| Backend  | Render   | https://placement-portal-f7dv.onrender.com       |
-| Database | MongoDB Atlas | Cloud hosted                                |
-
----
-
-## 📧 Email Notifications
-
-The portal sends automated emails for:
-- OTP verification on registration
-- Forgot password OTP
-- New job posted (all students)
-- Application shortlisted / selected / rejected
-- Account verified / debarred / reinstated
-- Admin notified on new student registration
-- Bulk import activation emails
-- Contact form confirmation
-
----
-
-## 👨‍💻 Author
-
-**Nitesh Kumar Jha**
-- Portfolio: [my-port-folio-nitesh.vercel.app](https://my-port-folio-nitesh.vercel.app)
-- GitHub: [@niteshhh001](https://github.com/niteshhh001)
-- LinkedIn: [nitesh-kumar-jha](http://www.linkedin.com/in/nitesh-kumar-jha-55b484263)
+For deployment guidelines, environment variables settings, and troubleshooting instructions (like Cloudinary PDF security settings), see the [Deployment & Hosting Guide](file:///C:/Users/Naman%20Sharma/.gemini/antigravity/brain/13c824d2-97fa-4c45-9f7e-c2bcb10c0cee/hosting_guide.md).
 
 ---
 
 ## 📄 License
-
 This project is licensed under the MIT License.

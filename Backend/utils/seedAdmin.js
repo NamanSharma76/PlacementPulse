@@ -4,8 +4,8 @@ const Admin = require("../models/Admin.model");
 
 const adminData = {
   name: "Placement Admin",
-  email: "kumarjhanitesh09@gmail.com",
-  password: "Admin@123",
+  email: "namansharma9625@gmail.com",
+  password: "Admin@Naman",
   designation: "Placement Coordinator",
 };
 

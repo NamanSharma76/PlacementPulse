@@ -49,6 +49,25 @@ const updateProfile = asyncHandler(async (req, res) => {
   res.json({ success: true, message: "Profile updated.", data: updatedStudent });
 });
 
+const https = require("https");
+const { extractTextFromBuffer } = require("../utils/pdfParser.util");
+const { extractSkillsFromText } = require("../utils/matchingEngine.util");
+
+const fetchPdfBuffer = (url) => {
+  return new Promise((resolve, reject) => {
+    https.get(url, (res) => {
+      if (res.statusCode !== 200) {
+        reject(new Error(`Failed to download PDF: Status ${res.statusCode}`));
+        return;
+      }
+      const chunks = [];
+      res.on("data", (chunk) => chunks.push(chunk));
+      res.on("end", () => resolve(Buffer.concat(chunks)));
+      res.on("error", reject);
+    }).on("error", reject);
+  });
+};
+
 const uploadResume = asyncHandler(async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ success: false, message: "No file uploaded." });
@@ -62,11 +81,25 @@ const uploadResume = asyncHandler(async (req, res) => {
     resumeUrl = resumeUrl + ".pdf";
   }
 
+  let parsedResumeText = "";
+  let extractedSkills = [];
+
+  try {
+    // Fetch and parse the PDF resume from the uploaded Cloudinary URL
+    const pdfBuffer = await fetchPdfBuffer(resumeUrl);
+    parsedResumeText = await extractTextFromBuffer(pdfBuffer);
+    extractedSkills = extractSkillsFromText(parsedResumeText);
+  } catch (parseError) {
+    console.error("⚠️ Background PDF parsing failed during resume upload:", parseError.message);
+  }
+
   const student = await Student.findByIdAndUpdate(
     req.user._id,
     {
       resumeUrl: resumeUrl,
       resumePublicId: req.file.filename,
+      parsedResumeText,
+      extractedSkills,
     },
     { new: true }
   );
@@ -76,8 +109,9 @@ const uploadResume = asyncHandler(async (req, res) => {
 
   res.json({
     success: true,
-    message: "Resume uploaded.",
+    message: "Resume uploaded and processed successfully.",
     resumeUrl: student.resumeUrl,
+    extractedSkills: student.extractedSkills,
     isProfileComplete: student.isProfileComplete,
   });
 });
@@ -111,6 +145,17 @@ const contactPlacementCell = asyncHandler(async (req, res) => {
 
   const { sendEmail } = require("../utils/email.util");
   const Admin = require("../models/Admin.model");
+  const Query = require("../models/Query.model");
+
+  // Save query to database
+  await Query.create({
+    studentId: req.user._id,
+    name: name || req.user.name,
+    email: email || req.user.email,
+    category,
+    subject,
+    message,
+  });
 
   // Get all admin emails
   const admins = await Admin.find().select("email");

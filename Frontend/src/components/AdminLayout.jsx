@@ -6,6 +6,8 @@ const navItems = [
   { path: "/admin", label: "Dashboard", icon: "⊞", end: true },
   { path: "/admin/jobs", label: "Job Management", icon: "💼" },
   { path: "/admin/students", label: "Students", icon: "🎓" },
+  { path: "/admin/matching", label: "Resume Matcher", icon: "🔍" },
+  { path: "/admin/queries", label: "Student Queries", icon: "📧" },
   { path: "/admin/notifications", label: "Notifications", icon: "📢" },
 ];
 
@@ -25,7 +27,7 @@ export default function AdminLayout() {
             <span className="text-white text-sm font-bold">P</span>
           </div>
           <div>
-            <span className="font-semibold text-gray-900 block">Placement Portal</span>
+            <span className="font-semibold text-gray-900 block">PlacementPulse</span>
             <span className="text-xs text-indigo-600 font-medium">Admin Panel</span>
           </div>
         </div>

@@ -53,6 +53,8 @@ activationTokenExpiry: { type: Date },
     isBlocked: { type: Boolean, default: false },
     blockReason: { type: String, default: "" },
     isProfileLocked: { type: Boolean, default: false },
+    parsedResumeText: { type: String, default: "" },
+    extractedSkills: [{ type: String }],
   },
   { timestamps: true }
 );

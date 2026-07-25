@@ -10,6 +10,7 @@ const {
 } = require("../utils/cache.util");
 const AuditLog = require("../models/AuditLog.model");
 const crypto = require("crypto");
+const Query = require("../models/Query.model");
 
 const { asyncHandler } = require("../middleware/error.middleware");
 //const Job = require("../models/Job.model");
@@ -1196,11 +1197,36 @@ const student = await Student.create({
   });
 });
 
+// @desc    Get all student contact queries
+// @route   GET /api/admin/queries
+// @access  Admin only
+const getQueries = asyncHandler(async (req, res) => {
+  const queries = await Query.find().sort({ createdAt: -1 });
+  res.json({ success: true, queries });
+});
+
+// @desc    Resolve a student contact query
+// @route   PATCH /api/admin/queries/:id/resolve
+// @access  Admin only
+const resolveQuery = asyncHandler(async (req, res) => {
+  const query = await Query.findByIdAndUpdate(
+    req.params.id,
+    { status: "Resolved" },
+    { new: true }
+  );
+
+  if (!query) {
+    return res.status(404).json({ success: false, message: "Query not found" });
+  }
+
+  res.json({ success: true, message: "Query marked as resolved", query });
+});
+
 module.exports = {
   createJob, updateJob, deleteJob, getAllJobs,
   getApplicants, updateApplicationStatus, exportApplicantsExcel,
   bulkUpdateStatus, bulkImportStudents,
   getAllStudents, getStudentProfile, updateStudentProfile, lockStudentProfile,
   verifyStudent, blockStudent, unblockStudent,
-  getStats, bulkNotify,
+  getStats, bulkNotify, getQueries, resolveQuery,
 };

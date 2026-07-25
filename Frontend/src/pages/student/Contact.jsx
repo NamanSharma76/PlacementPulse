@@ -51,7 +51,7 @@ export default function Contact() {
         <div className="bg-white rounded-xl border border-gray-200 p-4 flex flex-col items-center text-center gap-2">
           <span className="text-2xl">📞</span>
           <p className="text-xs font-medium text-gray-500">Phone</p>
-          <p className="text-sm font-medium text-indigo-600">+91 98765 43210</p>
+          <p className="text-sm font-medium text-indigo-600">+91 00000 00000</p>
         </div>
         <div className="bg-white rounded-xl border border-gray-200 p-4 flex flex-col items-center text-center gap-2">
           <span className="text-2xl">🕐</span>

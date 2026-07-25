@@ -64,13 +64,13 @@ export default function Login() {
   <div className="w-14 h-14 bg-gradient-to-r from-blue-600 to-green-500 rounded-xl flex items-center justify-center mx-auto mb-4">
     <img
       src="/logo.png"
-      alt="Placement Portal"
+      alt="PlacementPulse"
       className="w-8 h-8 object-contain"
     />
   </div>
 
   <h1 className="text-2xl font-bold text-gray-900">
-    Placement Portal
+    PlacementPulse
   </h1>
 
   <p className="text-gray-500 mt-1 text-sm">

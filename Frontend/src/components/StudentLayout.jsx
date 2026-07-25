@@ -25,7 +25,7 @@ export default function StudentLayout() {
           <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
             <span className="text-white text-sm font-bold">P</span>
           </div>
-          <span className="font-semibold text-gray-900">Placement Portal</span>
+          <span className="font-semibold text-gray-900">PlacementPulse</span>
         </div>
 
         {/* Nav Items */}
@@ -90,7 +90,7 @@ export default function StudentLayout() {
           >
             ☰
           </button>
-          <span className="font-semibold text-gray-900">Placement Portal</span>
+          <span className="font-semibold text-gray-900">PlacementPulse</span>
         </header>
 
         {/* Page Content */}

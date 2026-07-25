@@ -11,6 +11,7 @@ const studentRoutes = require("./routes/student.routes");
 const jobRoutes = require("./routes/job.routes");
 const applicationRoutes = require("./routes/application.routes");
 const adminRoutes = require("./routes/admin.routes");
+const matchingRoutes = require("./routes/matching.routes");
 const { errorHandler } = require("./middleware/error.middleware");
 
 const app = express();
@@ -18,18 +19,35 @@ const app = express();
 app.use(helmet());
 
 // CORS — allow localhost for dev + Vercel URL for production
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:3001",
+  "http://localhost:3002",
+  "http://localhost:5173",
+  "http://localhost:5174",
+  process.env.CLIENT_URL,
+].filter(Boolean);
+
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "http://localhost:5174",
-    process.env.CLIENT_URL,
-  ].filter(Boolean),
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps, curl, or Postman)
+    if (!origin) return callback(null, true);
+    
+    // Check if origin is localhost (any port)
+    const isLocalhost = /^https?:\/\/localhost(:\d+)?$/.test(origin);
+    
+    if (isLocalhost || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
 }));
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100,
+  max: process.env.NODE_ENV === "development" ? 10000 : 100,
   message: { success: false, message: "Too many requests, please try again later." },
 });
 app.use("/api/", limiter);
@@ -42,7 +60,7 @@ if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 app.get("/api/health", (req, res) => {
   res.json({
     success: true,
-    message: "Placement Portal API is running",
+    message: "PlacementPulse API is running",
     timestamp: new Date(),
     environment: process.env.NODE_ENV,
   });
@@ -53,6 +71,7 @@ app.use("/api/student", studentRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/applications", applicationRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/matching", matchingRoutes);
 
 app.use(errorHandler);
 

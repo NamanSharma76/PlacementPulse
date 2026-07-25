@@ -26,6 +26,8 @@ import Notifications from "./pages/admin/Notifications";
 import StudentProfile from "./pages/admin/StudentProfile";
 import ImportStudents from "./pages/admin/ImportStudents";
 import Landing from "./pages/Landing";
+import Queries from "./pages/admin/Queries";
+import MatchingDashboard from "./pages/admin/MatchingDashboard";
 
 function App() {
   return (
@@ -78,6 +80,8 @@ function App() {
               <Route path="students/import" element={<ImportStudents />} />
               <Route path="students/:id" element={<StudentProfile />} />
               <Route path="notifications" element={<Notifications />} />
+              <Route path="queries" element={<Queries />} />
+              <Route path="matching" element={<MatchingDashboard />} />
             </Route>
 
             {/* 404 catch all */}

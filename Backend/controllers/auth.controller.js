@@ -158,6 +158,7 @@ const student = await Student.create({
 // @route   POST /api/auth/login
 const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
+  console.log(`🔐 Login Attempt: Email="${email}", PasswordLength=${password ? password.length : 0}`);
 
   let user = await Admin.findOne({ email }).select("+password");
   let role = "admin";

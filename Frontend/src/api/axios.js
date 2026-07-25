@@ -37,11 +37,22 @@ API.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    // Handle token refresh
-    if (error.response?.status === 401 && !original._retry) {
+    // Handle token refresh (only if not a login/register request, and if we have a refresh token)
+    const isAuthRequest = original.url.includes("/auth/login") || 
+                          original.url.includes("/auth/student/register") ||
+                          original.url.includes("/auth/refresh");
+
+    if (error.response?.status === 401 && !original._retry && !isAuthRequest) {
       original._retry = true;
+      const refreshToken = localStorage.getItem("refreshToken");
+      
+      if (!refreshToken) {
+        localStorage.clear();
+        window.location.href = "/login";
+        return Promise.reject(error);
+      }
+
       try {
-        const refreshToken = localStorage.getItem("refreshToken");
         const { data } = await axios.post(
           `${import.meta.env.VITE_API_URL}/auth/refresh`,
           { refreshToken }

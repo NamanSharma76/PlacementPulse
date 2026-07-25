@@ -546,8 +546,6 @@ if (loading) return <ProfileSkeleton />;
                 />
               </label>
             </div>
-            {/* Change Password */}
-            <ChangePasswordSection />
           </div>
         ) : (
           <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-8 cursor-pointer hover:border-indigo-400 transition">
@@ -565,6 +563,9 @@ if (loading) return <ProfileSkeleton />;
           </label>
         )}
       </div>
+
+      {/* Change Password — separate card */}
+      <ChangePasswordSection />
 
       {viewingResume && (
         <ResumeViewer url={viewingResume} onClose={() => setViewingResume(null)} />
