@@ -830,7 +830,7 @@ export default function LandingPage() {
         <div className="hero-dots" />
         <div className="hero-badge">
           <div className="badge-pulse" />
-          ⚡ RAG Resume Matcher Active
+          ⚡ Semantic Resume Matcher Active
         </div>
         <h1 className="hero-title">
           The Intelligent Way to Manage<br />
@@ -858,7 +858,7 @@ export default function LandingPage() {
             </div>
             <div className="preview-content">
               <div className="preview-stat">
-                <div className="preview-stat-label">RAG Match Confidence</div>
+                <div className="preview-stat-label">Vector Match Confidence</div>
                 <div className="preview-stat-val green">94.8%</div>
               </div>
               <div className="preview-stat">
@@ -895,7 +895,7 @@ export default function LandingPage() {
           </div>
           <div className="stat-item">
             <div className="stat-number"><Counter end={1} suffix="s" /></div>
-            <div className="stat-label">RAG Matching Latency</div>
+            <div className="stat-label">Semantic Matching Latency</div>
           </div>
         </div>
       </div>
@@ -911,7 +911,7 @@ export default function LandingPage() {
             </p>
           </div>
           <div className="features-grid">
-            <FeatureCard delay={0} icon="🔍" title="RAG Resume Matcher" description="Upload candidate resumes to extract key technical skills. Instantly score and rank students against complex Job Descriptions with keyword overlap and vector Cosine Similarity." />
+            <FeatureCard delay={0} icon="🔍" title="Semantic Resume Matcher" description="Upload candidate resumes to extract key technical skills. Instantly score and rank students against complex Job Descriptions with keyword overlap and vector Cosine Similarity." />
             <FeatureCard delay={50} icon="📊" title="Auditing Dashboard" description="Full-featured admin dashboard displaying aggregate selection analytics, branch metrics, package spreads, and hiring pipelines at a glance." />
             <FeatureCard delay={100} icon="📥" title="Bulk Excel Imports" description="Onboard whole batches in one click. Excel parser automatically pre-fills academic history, sets up activation tokens, and locks profile data." />
             <FeatureCard delay={150} icon="📤" title="Excel Result Processors" description="Process company selections via Excel uploads. Detect roll numbers with fuzzy search, preview changes, and dispatch select emails automatically." />
@@ -931,7 +931,7 @@ export default function LandingPage() {
             <div className="section-label">✦ Automation Steppers</div>
             <h2 className="section-title">How It <em>Works</em></h2>
             <p className="section-sub">
-              From onboarding students to automated RAG matching — the placement cell pipeline in three clean steps.
+              From onboarding students to automated semantic matching — the placement cell pipeline in three clean steps.
             </p>
           </div>
           <div className="steps">
@@ -945,7 +945,7 @@ export default function LandingPage() {
               <div className="step-num">2</div>
               <div className="step-arrow">→</div>
               <h3 className="step-title">Post & Match</h3>
-              <p className="step-desc">Admins post active job vacancies. The RAG engine runs Cosine similarity vectors to rank students against requirements and logs match reports.</p>
+              <p className="step-desc">Admins post active job vacancies. The matching engine runs Cosine similarity vectors to rank students against requirements and logs match reports.</p>
             </div>
             <div className="step">
               <div className="step-num">3</div>

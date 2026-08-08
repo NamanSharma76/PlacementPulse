@@ -63,7 +63,7 @@ export default function MatchingDashboard() {
     <div className="space-y-6">
       <Toaster position="top-right" />
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">RAG Resume Matcher</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Semantic Resume Matcher</h1>
         <p className="text-gray-500 text-sm mt-1">
           Select a job posting to run the matching engine and rank students based on their resume alignments.
         </p>

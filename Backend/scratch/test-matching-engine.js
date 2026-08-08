@@ -36,7 +36,7 @@ const MOCK_CANDIDATE_B = {
 };
 
 function runTest() {
-  console.log("🧪 RUNNING RAG MATCHING ENGINE UNIT VERIFICATION TEST\n");
+  console.log("🧪 RUNNING SEMANTIC MATCHING ENGINE UNIT VERIFICATION TEST\n");
   console.log("--- Job Description ---");
   console.log(MOCK_JD.trim());
   console.log("-----------------------\n");
